@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 /**
  * Don't touch these imports!
@@ -22,7 +22,22 @@ const Search = (props) => {
    * queryString, setQueryString (default should be an empty string, '')
    * century, setCentury (default should be the string 'any')
    * classification, setClassification (default should be the string 'any')
+   * 
    */
+
+
+    const [centuryList, setCenturyList] = useState([]);
+
+    const [classificationList, setClassificationList] = useState([]);
+
+    const [queryString, setQueryString] = useState('');
+
+    const [century, setCentury] = useState('any');
+
+    const [classification, setClassification] = useState('any');
+
+    
+
 
 
   /**
@@ -33,8 +48,11 @@ const Search = (props) => {
    * Make sure to console.error on caught errors from the API methods.
    */
   useEffect(() => {
-
-  }, []);
+Promise.all ([fetchAllCenturies, fetchAllClassifications])
+.then(response => useCallback = setCenturyList, setClassificationList)  
+}, console.error('../api')
+  
+  []);
 
   /**
    * This is a form element, so we need to bind an onSubmit handler to it which:

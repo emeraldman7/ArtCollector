@@ -4,7 +4,7 @@ import React from 'react';
  * We need to import fetchQueryResultsFromURL since we will sometimes have urls in info.prev and info.next
  * which are query urls.
  */
-import { fetchQueryResultsFromURL } from '../api';
+// import { fetchQueryResultsFromURL } from '../api';
 
 const Preview = (props) => {
   /**
