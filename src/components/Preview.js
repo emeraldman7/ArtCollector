@@ -4,7 +4,7 @@ import React from 'react';
  * We need to import fetchQueryResultsFromURL since we will sometimes have urls in info.prev and info.next
  * which are query urls.
  */
-// import { fetchQueryResultsFromURL } from '../api';
+import { fetchQueryResultsFromURL } from '../api';
 
 const Preview = (props) => {
   /**
@@ -13,6 +13,12 @@ const Preview = (props) => {
    * 
    * You need info, records, setSearchResults, setFeaturedResult, and setIsLoading as available constants
    */
+      const {setSearchResults, setFeaturedResult, setIsLoading} = props;
+
+      const {info, records} = props.searchResults;
+    
+
+
 
 
   /**
@@ -35,16 +41,19 @@ const Preview = (props) => {
 
   return <aside id="preview">
     <header className="pagination">
-      {/* This button should be disabled if nothing is set in info.prev, and should call fetchPage with info.prev when clicked */}
+      {/* This button should be disabled if nothing is set in info.prev, and should call fetchPage with info.prev when clicked */
+      
+      }
       <button 
-        disabled={} 
+        disabled={!info.prev} 
         className="previous"
-        onClick={}>Previous</button>
-      {/* This button should be disabled if nothing is set in info.next, and should call fetchPage with info.next when clicked */}
-      <button
-        disabled={}
+        onClick={fetchPage (info.prev)}>Previous</button>
+      {/* This button should be disabled if nothing is set in info.next, and should call fetchPage with info.next when clicked */
+}
+          <button
+        disabled={!info.next}
         className="next"
-        onClick={}>Next</button>
+        onClick={info.next}>Next</button>
     </header>
     <section className="results">
       {
@@ -64,6 +73,33 @@ const Preview = (props) => {
             }
           </div>
         */
+
+          records.map (function (record, index){
+            return (
+            <div
+            key={ index }
+            className="object-preview"
+            onClick={ (event) => {
+
+              event.preventDefault();
+
+              return(
+              setFeaturedResult(record)
+
+            )}}>
+          {
+            record.primaryimageurl ?
+
+              <img src={record.primaryimageurl}
+
+          <h3>MISSING INFO</h3>
+          
+          </div>
+          )
+          
+
+
+
       }
     </section>
   </aside>

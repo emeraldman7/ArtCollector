@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
 
+
+
 // Don't touch this import
 import { fetchQueryResultsFromTermAndValue } from '../api';
+
 
 /**
  * We need a new component called Searchable which:
@@ -29,9 +32,30 @@ import { fetchQueryResultsFromTermAndValue } from '../api';
  * finally:
  *  - call setIsLoading, set it to false
  */
-const Searchable = (props) => {
-  
+const Searchable = async (props) => {
+
+    const [searchTerm, searchValue, setIsLoading, setSearchResults, person] = props;
+
+    const urlClick = async (event) => {
+        event.preventDefault()
+        setIsLoading(true);
+    }
+
+    try {
+        setSearchResults (
+        await fetchQueryResultsFromTermAndValue (searchTerm, searchValue));
+        return setSearchResults;
+    }
+    catch {
+        console.error(error);
+    }
+    finally {
+        setIsLoading(false);
+    }
+
+
 }
+
 
 /**
  * We need a new component called Feature which looks like this when no featuredResult is passed in as a prop:
@@ -69,6 +93,78 @@ const Searchable = (props) => {
  */
 const Feature = (props) => {
 
-}
+    const [featuredResult, setSearchResults, setIsLoading] = props;
+
+    const [title, dated, images, primaryimageurl, decription, culture, style, technique, 
+        medium, dimensions, people, department, division, contact, creditline] = featuredResult||{};
+
+        return (
+            <div>
+                {featuredResult? (<main id="feature">
+                    <div className="object-feature">
+                        <header>
+                        <h3>{featuredResult.title}</h3>
+                         <h4>{featuredResult.dated}</h4>   
+                        </header>
+            
+            <section className="facts">
+
+                
+                <span className="Title">{culture}</span>
+            <Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
+            searchTerm = {"Culture"} 
+            searchValue = {"Culture"} />
+
+                <span className="Title">{technique}</span>
+            <Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
+            searchTerm = {"technique"} 
+            searchValue = {"technique"} />
+
+                <span className="Title">{medium}</span>
+            <Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
+            searchTerm = {"Medium"} 
+            searchValue = {"Medium"} />
+
+                {people? people.map(function(person){
+                    return (<Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
+                        searchTerm = {"person"} searchValue = {person.displayname}/>)
+                    }):null
+                } 
+
+                { description? <> <span className="title">description</span>
+                <span className="content"> {description} </span></>:null}
+                
+                { style? <> <span className="title">style</span>
+                <span className="content"> {style} </span></>:null}
+
+                { dimensions? <> <span className="title">dimensions</span>
+                <span className="content"> {dimensions} </span></>:null}
+
+                { department? <> <span className="title">department</span>
+                <span className="content"> {department} </span></>:null}
+
+                { contact? <> <span className="title">contact</span>
+                <span className="content"> {contact} </span></>:null}
+
+                { division? <> <span className="title">divison</span>
+                <span className="content"> {division} </span></>:null}
+
+                { creditline? <> <span className="title">creditline</span>
+                <span className="content"> {creditline} </span></>:null}
+
+                </section>
+                
+                <section className="photos">
+                    <img src={primaryimageurl} alt= {title}/>
+
+            </section>
+            </div>
+    
+            </main>): (<main id="feature"></main>)}
+            </div>
+            )
+
+            };
+
 
 export default Feature;

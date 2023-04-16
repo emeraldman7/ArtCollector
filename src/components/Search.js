@@ -48,9 +48,20 @@ const Search = (props) => {
    * Make sure to console.error on caught errors from the API methods.
    */
   useEffect(() => {
-Promise.all ([fetchAllCenturies, fetchAllClassifications])
-.then(response => useCallback = setCenturyList, setClassificationList)  
-}, console.error('../api')
+Promise.all ([
+  fetchAllCenturies(), 
+  fetchAllClassifications()
+])
+.then(([
+centuries,
+classifications
+]) => {
+  setCenturyList(centuries);
+
+  setClassificationList(classifications);
+})  
+.catch(console.error);
+},
   
   []);
 
@@ -79,18 +90,26 @@ Promise.all ([fetchAllCenturies, fetchAllClassifications])
         id="keywords" 
         type="text" 
         placeholder="enter keywords..." 
-        value={/* this should be the query string */} 
-        onChange={/* this should update the value of the query string */}/>
+        value={queryString} 
+        onChange={ (event) => setQueryString(event.target.value) }/>
     </fieldset>
     <fieldset>
       <label htmlFor="select-classification">Classification <span className="classification-count">({ classificationList.length })</span></label>
       <select 
         name="classification"
         id="select-classification"
-        value={/* this should be the classification */} 
-        onChange={/* this should update the value of the classification */}>
+        value={classification} 
+        onChange={ (event) => setClassification(event.target.value) }>
         <option value="any">Any</option>
-        {/* map over the classificationList, return an <option /> */}
+        {/* map over the classificationList, return an <option /> */
+        
+        classificationList.map( classification =>
+        <option key= {classification.id}>
+          {classification.name}
+        </option>
+        )
+
+        }
       </select>
     </fieldset>
     <fieldset>
@@ -98,10 +117,20 @@ Promise.all ([fetchAllCenturies, fetchAllClassifications])
       <select 
         name="century" 
         id="select-century"
-        value={/* this should be the century */} 
-        onChange={/* this should update the value of the century */}>
+        value={century} 
+        onChange={setCentury}>
         <option value="any">Any</option>
-        {/* map over the centuryList, return an <option /> */}
+        {/* map over the centuryList, return an <option /> */
+        
+        centuryList.map( century => 
+
+          <option key= {century.id}>
+            {century.name}
+          </option>
+          
+          )
+
+        }
       </select>
      </fieldset>
     <button>SEARCH</button>
