@@ -95,7 +95,7 @@ const Feature = (props) => {
 
     const {featuredResult, setSearchResults, setIsLoading} = props;
 
-    const {title, dated, images, primaryimageurl, decription, culture, style, technique, 
+    const {title, dated, images, primaryimageurl, description, culture, style, technique, 
         medium, dimensions, people, department, division, contact, creditline} = featuredResult||{};
 
         return (

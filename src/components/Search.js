@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 /**
  * Don't touch these imports!
@@ -11,6 +11,7 @@ import {
 
 const Search = (props) => {
   // Make sure to destructure setIsLoading and setSearchResults from the props
+  const {setIsLoading, setSearchResults} = props;
 
 
   /**
@@ -83,6 +84,18 @@ classifications
    */
   return <form id="search" onSubmit={async (event) => {
     // write code here
+
+      event.preventDefault();
+
+      setIsLoading(true);
+
+      try {
+        setSearchResults (await fetchQueryResults({century, classification, queryString}));
+      }
+
+      catch (error) { console.error(error) }
+
+      finally {setIsLoading(false);}
   }}>
     <fieldset>
       <label htmlFor="keywords">Query</label>
