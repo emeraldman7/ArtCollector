@@ -108,22 +108,41 @@ const Feature = (props) => {
                         </header>
             
             <section className="facts">
-
-                
-                <span className="Title">{culture}</span>
+                {
+                    description ?
+                    <Fragment>
+                        <span className="title">{description}</span>
+                        <span className="content">{description}</span>
+                    </Fragment>
+                    :null
+                }
+        
+            { culture ?
+            
+                <Fragment>
+                <span className="title">{culture}</span>
             <Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
-            searchTerm = {"Culture"} 
-            searchValue = {"Culture"} />
+            searchTerm = "culture" 
+            searchValue = {culture}/>
+                </Fragment> :null
+            }
 
+            { technique ?
+                <Fragment>
                 <span className="Title">{technique}</span>
             <Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
             searchTerm = {"technique"} 
-            searchValue = {"technique"} />
-
+            searchValue = {technique} />
+                </Fragment> :null
+            }
+            {   medium ?
+            <Fragment>
                 <span className="Title">{medium}</span>
             <Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
             searchTerm = {"Medium"} 
             searchValue = {"Medium"} />
+            </Fragment> :null
+            }
 
                 {people? people.map(function(person){
                     return (<Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
@@ -137,25 +156,32 @@ const Feature = (props) => {
                 { style? <> <span className="title">style</span>
                 <span className="content"> {style} </span></>:null}
 
-                { dimensions? <> <span className="title">dimensions</span>
-                <span className="content"> {dimensions} </span></>:null}
+                { dimensions? 
+                <Fragment> <span className="title">dimensions</span>
+                <span className="content"> {dimensions}</span> 
+                </Fragment> :null}
 
-                { department? <> <span className="title">department</span>
-                <span className="content"> {department} </span></>:null}
+                { department? 
+                <Fragment> <span className="title">department</span>
+                <span className="content"> {department} </span>
+                </Fragment>:null}
 
-                { contact? <> <span className="title">contact</span>
-                <span className="content"> {contact} </span></>:null}
+                { contact? <Fragment> <span className="title">contact</span>
+                <span className="content"> {contact} </span>
+                </Fragment>:null}
 
-                { division? <> <span className="title">divison</span>
-                <span className="content"> {division} </span></>:null}
+                { division? <Fragment> <span className="title">divison</span>
+                <span className="content"> {division} </span>
+                </Fragment>:null}
 
-                { creditline? <> <span className="title">creditline</span>
-                <span className="content"> {creditline} </span></>:null}
+                { creditline? <Fragment> <span className="title">creditline</span>
+                <span className="content"> {creditline} </span>
+                </Fragment>:null}
 
                 </section>
                 
                 <section className="photos">
-                    <img src={primaryimageurl} alt= {title}/>
+                    <img src={primaryimageurl} alt= {primaryimageurl}/>
 
             </section>
             </div>
