@@ -34,7 +34,7 @@ import { fetchQueryResultsFromTermAndValue } from '../api';
  */
 const Searchable = async (props) => {
 
-    const [searchTerm, searchValue, setIsLoading, setSearchResults, person] = props;
+    const {searchTerm, searchValue, setIsLoading, setSearchResults, person} = props;
 
     const urlClick = async (event) => {
         event.preventDefault()
@@ -93,10 +93,10 @@ const Searchable = async (props) => {
  */
 const Feature = (props) => {
 
-    const [featuredResult, setSearchResults, setIsLoading] = props;
+    const {featuredResult, setSearchResults, setIsLoading} = props;
 
-    const [title, dated, images, primaryimageurl, decription, culture, style, technique, 
-        medium, dimensions, people, department, division, contact, creditline] = featuredResult||{};
+    const {title, dated, images, primaryimageurl, decription, culture, style, technique, 
+        medium, dimensions, people, department, division, contact, creditline} = featuredResult||{};
 
         return (
             <div>

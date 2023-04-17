@@ -47,7 +47,7 @@ const Preview = (props) => {
       <button 
         disabled={!info.prev} 
         className="previous"
-        onClick={fetchPage (info.prev)}>Previous</button>
+        onClick={() => fetchPage(info.prev)}>Previous</button>
       {/* This button should be disabled if nothing is set in info.next, and should call fetchPage with info.next when clicked */
 }
           <button
@@ -90,17 +90,20 @@ const Preview = (props) => {
           {
             record.primaryimageurl ?
 
-              <img src={record.primaryimageurl}
+              <img src={record.primaryimageurl} alt= {record.description} />
+              :null
+          }
+          {
+            record.title ? <a href= {record.title}>
 
-          <h3>MISSING INFO</h3>
-          
+              <h3>{record.title}</h3>
+
+              </a>
+
+              : <h3>MISSING INFO</h3>
+          }
           </div>
-          )
-          
-
-
-
-      }
+          )})}
     </section>
   </aside>
 }
