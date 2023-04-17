@@ -34,12 +34,12 @@ import { fetchQueryResultsFromTermAndValue } from '../api';
  */
 const Searchable = async (props) => {
 
-    const {searchTerm, searchValue, setIsLoading, setSearchResults, person} = props;
+    const {searchTerm, searchValue, setIsLoading, setSearchResults} = props;
 
     const urlClick = async (event) => {
-        event.preventDefault()
-        setIsLoading(true);
-    }
+        event.preventDefault();
+       setIsLoading(true);
+    
 
     try {
         setSearchResults (
@@ -53,9 +53,15 @@ const Searchable = async (props) => {
         setIsLoading(false);
     }
 
+    return (
+        <span className="content">
+            <a href="#" onClick={urlClick}>{searchValue}</a>
+        </span>
+    )
+
 
 }
-
+}
 
 /**
  * We need a new component called Feature which looks like this when no featuredResult is passed in as a prop:
@@ -93,10 +99,10 @@ const Searchable = async (props) => {
  */
 const Feature = (props) => {
 
-    const {featuredResult, setSearchResults, setIsLoading} = props;
+    const {featuredResult} = props;
 
-    const {title, dated, images, primaryimageurl, description, culture, style, technique, 
-        medium, dimensions, people, department, division, contact, creditline} = featuredResult||{};
+    const {primaryimageurl, description, culture, technique, 
+        medium, people} = featuredResult||{};
 
         return (
             <div>
@@ -117,75 +123,71 @@ const Feature = (props) => {
                     :null
                 }
         
-            { culture ?
             
-                <Fragment>
-                <span className="title">{culture}</span>
-            <Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
-            searchTerm = "culture" 
-            searchValue = {culture}/>
-                </Fragment> :null
-            }
-
-            { technique ?
-                <Fragment>
-                <span className="Title">{technique}</span>
-            <Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
-            searchTerm = {"technique"} 
-            searchValue = {technique} />
-                </Fragment> :null
-            }
-            {   medium ?
-            <Fragment>
-                <span className="Title">{medium}</span>
-            <Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
-            searchTerm = {"Medium"} 
-            searchValue = {"Medium"} />
-            </Fragment> :null
-            }
-
-                {people? people.map(function(person){
-                    return (<Searchable setIsLoading = {setIsLoading} setSearchResults = {setSearchResults}
-                        searchTerm = {"person"} searchValue = {person.displayname}/>)
-                    }):null
-                } 
-
-                { description? <> <span className="title">description</span>
-                <span className="content"> {description} </span></>:null}
+            <Searchable>
+            <main id="feature">
+ *   <div className="object-feature">
+ *     <header>
+ *       <h3>{culture}</h3>
+ *       <h4>{culture}</h4>
+ *     </header>
+ *     <section className="facts">
+ *       <span className="title">{description}</span>
+ *       <span className="content">FACT VALUE</span>
+ *       <span className="title">NEXT FACT NAME</span>
+ *       <span className="content">FACT VALUE</span>
+         <span className="title">people</span>
+         {people.map(person => <Searchable person = {person.displayname}/>)}
+ *     </section>
+ *     <section className="photos">
+ *       <img src={primaryimageurl} />
+ *     </section>
+ *       </div>
+ *      </main>
+        
+             <main id="feature">
+ *   <div className="object-feature">
+ *     <header>
+ *       <h3>{technique}</h3>
+ *       <h4>{technique}</h4>
+ *     </header>
+ *     <section className="facts">
+ *       <span className="title">{description}</span>
+ *       <span className="content">FACT VALUE</span>
+ *       <span className="title">NEXT FACE NAME</span>
+ *       <span className="content">FACT VALUE</span>
+         <span className="title">people</span>
+         {people.map(person => <Searchable person = {person.displayname}/>)}
+ *     </section>
+ *     <section className="photos">
+ *       <img src={primaryimageurl} />
+ *     </section>
+ *       </div>
+ *      </main>
                 
-                { style? <> <span className="title">style</span>
-                <span className="content"> {style} </span></>:null}
-
-                { dimensions? 
-                <Fragment> <span className="title">dimensions</span>
-                <span className="content"> {dimensions}</span> 
-                </Fragment> :null}
-
-                { department? 
-                <Fragment> <span className="title">department</span>
-                <span className="content"> {department} </span>
-                </Fragment>:null}
-
-                { contact? <Fragment> <span className="title">contact</span>
-                <span className="content"> {contact} </span>
-                </Fragment>:null}
-
-                { division? <Fragment> <span className="title">divison</span>
-                <span className="content"> {division} </span>
-                </Fragment>:null}
-
-                { creditline? <Fragment> <span className="title">creditline</span>
-                <span className="content"> {creditline} </span>
-                </Fragment>:null}
-
-                </section>
-                
-                <section className="photos">
-                    <img src={primaryimageurl} alt= {primaryimageurl}/>
-
+              <main id="feature">
+ *   <div className="object-feature">
+ *     <header>
+ *       <h3>{medium}</h3>
+ *       <h4>{medium}</h4>
+ *     </header>
+ *     <section className="facts">
+ *       <span className="title">{description}</span>
+ *       <span className="content">FACT VALUE</span>
+ *       <span className="title">NEXT FACT NAME</span>
+ *       <span className="content">FACT VALUE</span>
+         <span className="title">person</span>
+         {people.map(person => <Searchable person = {person.displayname}/>)}
+ *     </section>
+ *     <section className="photos">
+ *       <img src={primaryimageurl} />
+ *     </section>
+ *       </div>
+ *      </main>
+         </Searchable>  
+          
             </section>
             </div>
-    
             </main>): (<main id="feature"></main>)}
             </div>
             )
