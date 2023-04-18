@@ -38,29 +38,29 @@ const Searchable = async (props) => {
 
     const urlClick = async (event) => {
         event.preventDefault();
-       setIsLoading(true);
+        setIsLoading(true);
     
 
-    try {
-        setSearchResults (
-        await fetchQueryResultsFromTermAndValue (searchTerm, searchValue));
-        return setSearchResults;
-    }
-    catch {
-        console.error(error);
-    }
-    finally {
-        setIsLoading(false);
-    }
+        try {
+            setSearchResults (
+            await fetchQueryResultsFromTermAndValue (searchTerm, searchValue));
+            return setSearchResults;
+        }
+        catch (error) {
+            console.error(error);
+        }
+        finally {
+            setIsLoading(false);
+        }
 
+        
+    }
+    
     return (
         <span className="content">
             <a href="#" onClick={urlClick}>{searchValue}</a>
         </span>
     )
-
-
-}
 }
 
 /**
@@ -101,98 +101,111 @@ const Feature = (props) => {
 
     const {featuredResult} = props;
 
-    const {primaryimageurl, description, culture, technique, 
-        medium, people} = featuredResult||{};
+    const {
+        primaryimageurl, 
+        description, 
+        culture, 
+        technique, 
+        medium, 
+        people
+    } = featuredResult||{};
 
-        return (
-            <div>
-                {featuredResult? (<main id="feature">
-                    <div className="object-feature">
-                        <header>
-                        <h3>{featuredResult.title}</h3>
-                         <h4>{featuredResult.dated}</h4>   
-                        </header>
-            
-            <section className="facts">
-                {
-                    description ?
-                    <Fragment>
-                        <span className="title">{description}</span>
-                        <span className="content">{description}</span>
-                    </Fragment>
-                    :null
-                }
-        
-            
-            <Searchable>
+    return (
+        <div>
+            {
+                featuredResult ? (
+                    <main id="feature">
+                        <div className="object-feature">
+                            <header>
+                                <h3>{featuredResult.title}</h3>
+                                <h4>{featuredResult.dated}</h4>   
+                            </header>
+                        </div>
+                        <section className="facts">
+                            {
+                                description ? (
+                                    <Fragment>
+                                        <span className="title">{description}</span>
+                                        <span className="content">{description}</span>
+                                    </Fragment>
+                                ) : (
+                                    null
+                                )
+                            }
+                        </section>
+                    </main>
+                ) : (
+                    null
+                )
+            }
             <main id="feature">
- *   <div className="object-feature">
- *     <header>
- *       <h3>{culture}</h3>
- *       <h4>{culture}</h4>
- *     </header>
- *     <section className="facts">
- *       <span className="title">{description}</span>
- *       <span className="content">FACT VALUE</span>
- *       <span className="title">NEXT FACT NAME</span>
- *       <span className="content">FACT VALUE</span>
-         <span className="title">people</span>
-         {people.map(person => <Searchable person = {person.displayname}/>)}
- *     </section>
- *     <section className="photos">
- *       <img src={primaryimageurl} />
- *     </section>
- *       </div>
- *      </main>
-        
-             <main id="feature">
- *   <div className="object-feature">
- *     <header>
- *       <h3>{technique}</h3>
- *       <h4>{technique}</h4>
- *     </header>
- *     <section className="facts">
- *       <span className="title">{description}</span>
- *       <span className="content">FACT VALUE</span>
- *       <span className="title">NEXT FACE NAME</span>
- *       <span className="content">FACT VALUE</span>
-         <span className="title">people</span>
-         {people.map(person => <Searchable person = {person.displayname}/>)}
- *     </section>
- *     <section className="photos">
- *       <img src={primaryimageurl} />
- *     </section>
- *       </div>
- *      </main>
-                
-              <main id="feature">
- *   <div className="object-feature">
- *     <header>
- *       <h3>{medium}</h3>
- *       <h4>{medium}</h4>
- *     </header>
- *     <section className="facts">
- *       <span className="title">{description}</span>
- *       <span className="content">FACT VALUE</span>
- *       <span className="title">NEXT FACT NAME</span>
- *       <span className="content">FACT VALUE</span>
-         <span className="title">person</span>
-         {people.map(person => <Searchable person = {person.displayname}/>)}
- *     </section>
- *     <section className="photos">
- *       <img src={primaryimageurl} />
- *     </section>
- *       </div>
- *      </main>
-         </Searchable>  
-          
-            </section>
-            </div>
-            </main>): (<main id="feature"></main>)}
-            </div>
-            )
-
-            };
+                <div className="object-feature">
+                    <header>
+                        <h3>{culture}</h3>
+                        <h4>{culture}</h4>
+                    </header>
+                    <section className="facts">
+                        <span className="title">{description}</span>
+                        <span className="content">FACT VALUE</span>
+                        <span className="title">NEXT FACT NAME</span>
+                        <span className="content">FACT VALUE</span>
+                        <span className="title">people</span>
+                        {
+                            //people && people.map(person => <Searchable person = {person.displayname}/>)
+                        }
+                    </section>
+                    <section className="photos">
+                        <img src={primaryimageurl} />
+                    </section>
+                </div>
+            </main>
+            
+            <main id="feature">
+                <div className="object-feature">
+                    <header>
+                        <h3>{technique}</h3>
+                        <h4>{technique}</h4>
+                    </header>
+                    <section className="facts">
+                        <span className="title">{description}</span>
+                        <span className="content">FACT VALUE</span>
+                        <span className="title">NEXT FACE NAME</span>
+                        <span className="content">FACT VALUE</span>
+                        <span className="title">people</span>
+                        {
+                            //people.map(person => <Searchable person = {person.displayname}/>)
+                        }
+                    </section>
+                    <section className="photos">
+                        <img src={primaryimageurl} />
+                    </section>
+                </div>
+            </main>
+                    
+            <main id="feature">
+                <div className="object-feature">
+                    <header>
+                        <h3>{medium}</h3>
+                        <h4>{medium}</h4>
+                    </header>
+                    <section className="facts">
+                        <span className="title">{description}</span>
+                        <span className="content">FACT VALUE</span>
+                        <span className="title">NEXT FACT NAME</span>
+                        <span className="content">FACT VALUE</span>
+                        <span className="title">person</span>
+                        {
+                            //people.map(person => <Searchable person = {person.displayname}/>)
+                        }
+                    </section>
+                    <section className="photos">
+                        <img src={primaryimageurl} />
+                    </section>
+                </div>
+            </main>
+        </div>
+    )
+};
 
 
 export default Feature;
